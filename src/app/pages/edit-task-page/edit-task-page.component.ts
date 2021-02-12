@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgModule } from '@angular/core'
+import { TasksPageComponent } from '../tasks-page/tasks-page.component';
 
 
 @Component({
@@ -13,13 +14,19 @@ export class EditTaskPageComponent implements OnInit {
 
   form: FormGroup
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private taskPage: TasksPageComponent) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       taskLabel: new FormControl(null, [Validators.required]),
       taskDescription: new FormControl(null)
     })
+  }
+
+  ngAfterViewInit() {
+    this.taskPage.matDrawerOptions.opened = true;
+    //@TODO Плохое ренение, переписать: сохранять ссылку на инстанс mat-drawer в сервис
+    //через ссылку в сервисе вызывать .toogle()
   }
 
   onSubmit() {

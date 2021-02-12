@@ -37,7 +37,7 @@ export class TasksPageComponent implements OnInit {
     { id: 3, label: 'Добавить страницу tasks', description: 'компонент, роуты', dateSince: this.testDate, done: true },
     { id: 4, label: 'Добавить тестовый список задач', description: '', dateSince: this.testDate, done: true },
     { id: 5, label: 'Применить компоненты Angular Material', description: '', dateSince: this.testDate, done: true },
-    { id: 6, label: 'Добавить страницы редактирования/создания', description: 'компоненты, роуты, сайдбар', dateSince: this.testDate, done: false },
+    { id: 6, label: 'Добавить страницы редактирования/создания', description: 'компоненты, роуты, сайдбар', dateSince: this.testDate, done: true },
     { id: 7, label: 'Переписать хранение и обработку списка в сервис', description: '', dateSince: this.testDate, done: false },
     { id: 8, label: 'Реализовать отправку форм создания/редактирования', description: '', dateSince: this.testDate, done: false },
     { id: 9, label: 'Реализовать обратную сортировку по дате добавления', description: '', dateSince: this.testDate, done: false },
