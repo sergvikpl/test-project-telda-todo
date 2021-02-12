@@ -6,12 +6,23 @@
   flex-direction: row
   width: 100%
   align-items: center
-
   .mat-form-field
     padding-right: 16px
     flex-basis: 100%
-
   .add-button
     display: flex
     flex-grow: 0
     flex-shrink: 0
+
+.mat-mini-fab
+  opacity: 0
+  pointer-events: none
+  transition: opacity 0.2s linear
+
+.mat-list-item:hover
+  background-color: rgba(63, 81, 181, .1)
+  transition: all 0.2s linear
+  cursor: pointer
+  .mat-mini-fab
+    opacity: 1
+    pointer-events: all
