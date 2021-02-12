@@ -15,7 +15,7 @@ export class TasksPageComponent implements OnInit {
 
   matDrawerOptions = {
     opened: false,
-    mode: 'slide',
+    mode: 'push', //slide, over, push
     position: 'start',
     hasBackdrop: true,
   }

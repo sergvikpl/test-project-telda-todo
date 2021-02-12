@@ -11,7 +11,7 @@
 
         <mat-divider></mat-divider>
 
-        <mat-list-item *ngFor="let task of tasks" (click)="drawer.toggle(); goToEditTask(task)">
+        <mat-list-item *ngFor="let task of tasks">
           <mat-divider></mat-divider>
            <mat-icon mat-list-icon>
              <mat-checkbox [checked]="task.done" (change)="toggle(task)"></mat-checkbox>
@@ -20,7 +20,10 @@
             {{task.label}}
           </div>
           <div mat-line>{{task.description}}</div>
-          <button mat-mini-fab color="accent" (click)="delete(task)">
+          <button mat-mini-fab color="accent" (click)="drawer.toggle(); goToEditTask(task)" class="edit-button">
+            <mat-icon>mode</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" (click)="delete(task)" class="delete-button">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-list-item>
