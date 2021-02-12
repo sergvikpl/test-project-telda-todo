@@ -21,6 +21,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { TasksPageComponent } from './pages/tasks-page/tasks-page.component';
 import { EditTaskPageComponent } from './pages/edit-task-page/edit-task-page.component';
 
@@ -34,6 +36,9 @@ import { EditTaskPageComponent } from './pages/edit-task-page/edit-task-page.com
   imports: [
     BrowserModule,
     AppRoutingModule,
+
+    FormsModule,
+    ReactiveFormsModule,
 
     MatButtonModule,
     MatCheckboxModule,

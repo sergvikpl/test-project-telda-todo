@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { NgModule } from '@angular/core'
+
 
 @Component({
   selector: 'edit-task-page',
@@ -7,13 +11,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditTaskPageComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      taskLabel: new FormControl(null, [Validators.required]),
+      taskDescription: new FormControl(null)
+    })
   }
 
   onSubmit() {
+    this.form.disable()
 
+    const task = {
+      id: 42,
+      label: this.form.value.taskLabel,
+      description: this.form.value.taskDescription,
+      dateSince: new Date(),
+      done: false
+    }
+    console.log("SHOW NEW TASK: ", task, this.form);
+
+
+    this.router.navigate(['tasks']);
   }
 
 }

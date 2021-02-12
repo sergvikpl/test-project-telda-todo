@@ -1,11 +1,15 @@
-<form (ngSubmit)="onSubmit()" class="edit-form">
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="edit-form"
+>
   <mat-form-field appearance="fill">
     <mat-label>Заголовок</mat-label>
-    <input matInput>
+    <input matInput #taskLabel>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Описание</mat-label>
-    <textarea matInput></textarea>
+    <textarea matInput #taskDescription></textarea>
   </mat-form-field>
   <!-- <mat-form-field appearance="fill">
     <mat-label>Дата начала</mat-label>
