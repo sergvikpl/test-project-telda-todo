@@ -1,0 +1,44 @@
+<mat-drawer-container [hasBackdrop]="matDrawerOptions.hasBackdrop" (backdropClick)="goToTask()">
+
+  <mat-drawer-content>
+
+    <div class="wrapper">
+      <button mat-flat-button type="button" color="primary" (click)="drawer.toggle(); goToAddTask()" class="add-button">
+        Добавить
+      </button>
+
+      <mat-list>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item *ngFor="let task of tasks">
+          <mat-divider></mat-divider>
+           <mat-icon mat-list-icon>
+             <mat-checkbox [checked]="task.done" (change)="toggle(task)"></mat-checkbox>
+           </mat-icon>
+          <div mat-line>
+            {{task.label}}
+          </div>
+          <div mat-line>{{task.description}}</div>
+          <button mat-mini-fab color="accent" (click)="drawer.toggle(); goToEditTask(task)" class="edit-button">
+            <mat-icon>mode</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" (click)="delete(task)" class="delete-button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+
+      </mat-list>
+    </div>
+
+  </mat-drawer-content>
+
+  <mat-drawer #drawer
+    [(opened)]="matDrawerOptions.opened"
+    [mode]="matDrawerOptions.mode"
+    [position]="matDrawerOptions.position"
+  >
+    <router-outlet></router-outlet>
+  </mat-drawer>
+
+</mat-drawer-container>
