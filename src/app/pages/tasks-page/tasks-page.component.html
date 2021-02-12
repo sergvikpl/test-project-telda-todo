@@ -1,32 +1,41 @@
-<div class="wrapper">
+<mat-drawer-container [hasBackdrop]="matDrawerOptions.hasBackdrop" (close)="goToTask()">
 
-  <form class="add-task-container">
-    <mat-form-field>
-      <mat-label>Введите новую задачу</mat-label>
-      <input matInput type="text" #newTaskLabel>
-    </mat-form-field>
-    <button mat-flat-button type="button" color="primary" (click)="add(newTaskLabel.value)" class="add-button">Добавить</button>
-  </form>
+  <mat-drawer-content>
 
-  <mat-list>
-
-    <mat-divider></mat-divider>
-
-    <mat-list-item *ngFor="let task of tasks">
-      <mat-divider></mat-divider>
-      <div mat-line>
-        <mat-checkbox [checked]="task.done" (change)="toggle(task)"></mat-checkbox>
-        {{task.label}}
-      </div>
-      <div mat-line>{{task.dateSince}}</div>
-      <button mat-mini-fab color="accent" (click)="delete(task)">
-        <mat-icon>delete</mat-icon>
+    <div class="wrapper">
+      <button mat-flat-button type="button" color="primary" (click)="drawer.toggle(); goToAddTask()" class="add-button">
+        Добавить
       </button>
-    </mat-list-item>
 
-  </mat-list>
-</div>
+      <mat-list>
 
-<div>
-  <router-outlet></router-outlet>
-</div>
+        <mat-divider></mat-divider>
+
+        <mat-list-item *ngFor="let task of tasks" (click)="drawer.toggle(); goToEditTask(task)">
+          <mat-divider></mat-divider>
+           <mat-icon mat-list-icon>
+             <mat-checkbox [checked]="task.done" (change)="toggle(task)"></mat-checkbox>
+           </mat-icon>
+          <div mat-line>
+            {{task.label}}
+          </div>
+          <div mat-line>{{task.description}}</div>
+          <button mat-mini-fab color="accent" (click)="delete(task)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+
+      </mat-list>
+    </div>
+
+  </mat-drawer-content>
+
+  <mat-drawer #drawer
+    [opened]="matDrawerOptions.opened"
+    [mode]="matDrawerOptions.mode"
+    [position]="matDrawerOptions.position"
+  >
+    <router-outlet></router-outlet>
+  </mat-drawer>
+
+</mat-drawer-container>

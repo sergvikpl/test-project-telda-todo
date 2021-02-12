@@ -12,21 +12,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-// import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 // import {MatSortModule} from '@angular/material/sort';
 // import {MatTableModule} from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { TasksPageComponent } from './pages/tasks-page/tasks-page.component';
+import { EditTaskPageComponent } from './pages/edit-task-page/edit-task-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksPageComponent
+    TasksPageComponent,
+    EditTaskPageComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +42,11 @@ import { TasksPageComponent } from './pages/tasks-page/tasks-page.component';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSidenavModule,
     MatDividerModule,
     MatToolbarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
