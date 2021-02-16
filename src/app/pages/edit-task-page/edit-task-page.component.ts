@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgModule } from '@angular/core'
 import { TasksPageComponent } from '../tasks-page/tasks-page.component';
@@ -13,31 +13,60 @@ import { TaskManagerService } from '../../services/task-manager.service';
 export class EditTaskPageComponent implements OnInit {
 
   form: FormGroup
+  id: string
+  isEditMode: boolean
+  editedTask: any
 
   constructor(
     private router: Router,
+    private currentRoute: ActivatedRoute,
     private taskPage: TasksPageComponent,
     private taskManagerService: TaskManagerService
   ) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      taskLabel: new FormControl(null, [Validators.required]),
-      taskDescription: new FormControl(null)
-    })
-  }
+    this.id = this.currentRoute.snapshot.params['id']
+    this.isEditMode = !!this.id
 
-  ngAfterViewInit() {
+    this.editedTask = {
+      label: null,
+      description: null
+    }
+
+    this.form = new FormGroup({
+      label: new FormControl(null, [Validators.required]),
+      description: new FormControl(null)
+    })
+
     this.taskPage.matDrawerOptions.opened = true;
     //@TODO Плохое ренение, переписать: сохранять ссылку на инстанс mat-drawer в сервис
     //через ссылку в сервисе вызывать .toogle()
+
+    if (this.isEditMode) {
+      this.editedTask = this.taskManagerService.getById(this.id)
+      if (this.editedTask) {
+        this.form.controls["label"].setValue(this.editedTask.label);
+        this.form.controls["description"].setValue(this.editedTask.description);
+      } else {
+        this.taskPage.matDrawerOptions.opened = false;
+        this.router.navigate(['tasks']);
+      }
+    }
   }
 
   onSubmit() {
     this.form.disable()
-    this.taskManagerService.add(this.form)
-    this.taskPage.matDrawerOptions.opened = false;
-    this.router.navigate(['tasks']);
+    if (this.isEditMode) {
+      this.taskManagerService.save(this.editedTask, this.form.value).then(() => {
+        this.taskPage.matDrawerOptions.opened = false;
+        this.router.navigate(['tasks']);
+      })
+    } else {
+      this.taskManagerService.add(this.form.value).then(() => {
+        this.taskPage.matDrawerOptions.opened = false;
+        this.router.navigate(['tasks']);
+      })
+    }
   }
 
 }
