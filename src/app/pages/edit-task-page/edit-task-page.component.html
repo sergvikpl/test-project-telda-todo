@@ -5,11 +5,11 @@
 >
   <mat-form-field appearance="fill">
     <mat-label>Заголовок</mat-label>
-    <input matInput #taskLabel>
+    <input matInput #taskLabel formControlName="taskLabel">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Описание</mat-label>
-    <textarea matInput #taskDescription></textarea>
+    <textarea matInput #taskDescription formControlName="taskDescription"></textarea>
   </mat-form-field>
   <!-- <mat-form-field appearance="fill">
     <mat-label>Дата начала</mat-label>

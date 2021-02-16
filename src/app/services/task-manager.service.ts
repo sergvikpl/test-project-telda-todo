@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 export interface Task {
-  id?: string
+  id: any
   label: string
-  description?: string
-  dateSince?: string
+  description: string
+  dateSince: any
   done: boolean
 }
 
@@ -36,7 +36,7 @@ export class TaskManagerService {
     { id: 7, label: 'Переписать хранение и обработку списка в сервис', description: '', dateSince: this.testDate, done: true },
     { id: 8, label: 'Реализовать отправку форм создания/редактирования', description: '', dateSince: this.testDate, done: false },
     { id: 9, label: 'Реализовать обратную сортировку по дате добавления', description: '', dateSince: this.testDate, done: false },
-    { id: 10, label: 'Исправить баг с геренацией ID', description: '', dateSince: this.testDate, done: false },
+    { id: 10, label: 'Исправить баг с геренацией ID', description: 'Брать timestamp', dateSince: this.testDate, done: true },
     { id: 11, label: 'Реализовать сохрание данных в localStorage', description: '', dateSince: this.testDate, done: false },
     { id: 12, label: 'Добавить в хидер меню полной очистки и генерации', description: '', dateSince: this.testDate, done: false },
     { id: 13, label: 'Улучшить читабельность тасков на малых экранах', description: '', dateSince: this.testDate, done: false },
@@ -46,8 +46,19 @@ export class TaskManagerService {
     { id: 17, label: 'Интегрировать цвета из темы', description: '', dateSince: this.testDate, done: false },
   ];
 
-  add(task) {
-    console.log("TASK LIST CHECK ADD: ", task, "list", this.tasks);
+  add(form) {
+    console.log("TASK LIST CHECK ADD: ", form, "list", this.tasks);
+    return new Promise((resolve, reject) => {
+      const newTask: Task = {
+        id: Date.now(),
+        label: form.value.taskLabel,
+        description: form.value.taskDescription,
+        dateSince: new Date(),
+        done: false
+      }
+      this.tasks.push(newTask)
+      return resolve(newTask)
+    })
   }
 
   toggle(task) {

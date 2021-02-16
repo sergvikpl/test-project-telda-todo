@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgModule } from '@angular/core'
 import { TasksPageComponent } from '../tasks-page/tasks-page.component';
-
+import { TaskManagerService } from '../../services/task-manager.service';
 
 @Component({
   selector: 'edit-task-page',
@@ -14,7 +14,11 @@ export class EditTaskPageComponent implements OnInit {
 
   form: FormGroup
 
-  constructor(private router: Router, private taskPage: TasksPageComponent) { }
+  constructor(
+    private router: Router,
+    private taskPage: TasksPageComponent,
+    private taskManagerService: TaskManagerService
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -31,17 +35,8 @@ export class EditTaskPageComponent implements OnInit {
 
   onSubmit() {
     this.form.disable()
-
-    const task = {
-      id: 42,
-      label: this.form.value.taskLabel,
-      description: this.form.value.taskDescription,
-      dateSince: new Date(),
-      done: false
-    }
-    console.log("SHOW NEW TASK: ", task, this.form);
-
-
+    this.taskManagerService.add(this.form)
+    this.taskPage.matDrawerOptions.opened = false;
     this.router.navigate(['tasks']);
   }
 
