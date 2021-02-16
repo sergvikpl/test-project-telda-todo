@@ -5,11 +5,11 @@
 >
   <mat-form-field appearance="fill">
     <mat-label>Заголовок</mat-label>
-    <input matInput #taskLabel>
+    <input matInput #taskLabel formControlName="label">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Описание</mat-label>
-    <textarea matInput #taskDescription></textarea>
+    <textarea matInput #taskDescription formControlName="description"></textarea>
   </mat-form-field>
   <!-- <mat-form-field appearance="fill">
     <mat-label>Дата начала</mat-label>
@@ -17,7 +17,8 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field> -->
-  <button mat-flat-button type="submit" color="primary" class='add-button'>
-    Сохранить
+  <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid || form.disabled" class='add-button'>
+    <span *ngIf="!isEditMode">Добавить</span>
+    <span *ngIf="isEditMode">Сохранить</span>
   </button>
 </form>
